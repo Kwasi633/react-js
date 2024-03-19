@@ -60,8 +60,6 @@ const App = () => {
 }
 
 const Header = () => {
-  //const styles = {}
-
   return(
     <header className="header">
       <h1>Fast React Pizza Co.</h1>
@@ -71,15 +69,48 @@ const Header = () => {
 
 const Menu = () => {
   return(
-    <div>
+    <main className="menu">
       <h2>Our menu</h2>
-      <Pizza />
-      <Pizza />
-      <Pizza />
-      <Pizza />
-    </div>
+
+    <ul className="pizzas">
+      {pizzaData.map((pizza) => 
+      <Pizza 
+      pizzaObj={pizza}
+      key={pizza.name}
+      />
+      )}
+    </ul>
+
+      {/* <Pizza 
+        name="Pizza Spinaci"
+        ingredients="Tomato, mozarella, spinach and ricotta cheese"
+        photoName="pizzas\spinaci.jpg"
+        price={10}
+      />
+
+      <Pizza 
+        name="Pizza Funghi"
+        ingredients="Tomato, mozarella, and pepperoni"
+        price={12}
+        photoName={pizzaData[3].photoName}
+      /> */}
+
+    </main>
   )
 }
+
+const Pizza = (props) => {
+  return (
+      <li className="pizza">
+      <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name}/>
+      <div>
+      <h3>{props.pizzaObj.name}</h3>
+      <p>{props.pizzaObj.ingredients}</p>
+      <span>{props.pizzaObj.price + 3}</span>
+      </div>
+      </li>
+      
+)}
 
 const Footer = () => {
   const hour = new Date().getHours();
@@ -89,20 +120,9 @@ const Footer = () => {
   console.log(isOpen)
 
   return(
-    <footer>{new Date().toLocaleTimeString()} We are currently opened!</footer>
+    <footer className="footer">{new Date().toLocaleTimeString()} We are currently opened!</footer>
   )
 }
-
-
-const Pizza = () => {
-    return (
-        <div>
-        <img src="pizzas\spinaci.jpg" alt="Pizza Spinaci"/>
-        <h2>Pizza Spinaci</h2>
-        <p>Tomato, mozarella, spinach, and ricotta cheese</p>
-        </div>
-        
-)}
 
 //using React v18
 const root = ReactDOM.createRoot(document.getElementById("root"));
